@@ -109,16 +109,8 @@ module i2c_master_byte_ctrl (
             Bit_cmd<=Bit_cmd;
         end
         RD_A :begin 
-          /*if (ctrl_rd) begin
-            SR_shift<=1'b1;
-            ctrl_rd<=1'b0;
-          end 
-          else begin
-            SR_shift<=1'b0;
-          end*/
           if(Bit_ack) begin
             Bit_cmd<=`I2C_CMD_READ;
-            //ctrl_rd<=1'b1;
             SR_shift<=1'b1;              
           end
           else if(Write)begin
@@ -131,17 +123,9 @@ module i2c_master_byte_ctrl (
           end
         end
         RD_B :begin 
-          /*if (ctrl_rd) begin
-            SR_shift<=1'b1;
-            ctrl_rd<=1'b0;
-          end 
-          else begin
-            SR_shift<=1'b0;
-          end*/
           if(Bit_ack) begin
             Bit_cmd<=`I2C_CMD_READ;
-            SR_shift<=1'b1; 
-            //ctrl_rd<=1'b1;              
+            SR_shift<=1'b1;             
           end
           else if(Write)begin
             Bit_cmd<=`I2C_CMD_WRITE;
@@ -153,13 +137,6 @@ module i2c_master_byte_ctrl (
           end
         end
         RD_C :begin 
-          /*if (ctrl_rd) begin
-            SR_shift<=1'b1;
-            ctrl_rd<=1'b0;
-          end 
-          else begin
-            SR_shift<=1'b0;
-          end*/
           if(Bit_ack) begin
             Bit_cmd<=`I2C_CMD_READ;
             SR_shift<=1'b1;
@@ -175,16 +152,8 @@ module i2c_master_byte_ctrl (
           end
         end
         RD_D :begin 
-          /*if (ctrl_rd) begin
-            SR_shift<=1'b1;
-            ctrl_rd<=1'b0;
-          end 
-          else begin
-            SR_shift<=1'b0;
-          end*/
           if(Bit_ack) begin
             Bit_cmd<=`I2C_CMD_READ;
-            //ctrl_rd<=1'b1;
             SR_shift<=1'b1;              
           end
           else if(Write)begin
@@ -197,16 +166,8 @@ module i2c_master_byte_ctrl (
           end
         end
         RD_E :begin 
-          /*if (ctrl_rd) begin
-            SR_shift<=1'b1;
-            ctrl_rd<=1'b0;
-          end 
-          else begin
-            SR_shift<=1'b0;
-          end*/
           if(Bit_ack) begin
             Bit_cmd<=`I2C_CMD_READ;
-            //ctrl_rd<=1'b1;
             SR_shift<=1'b1;              
           end
           else if(Write)begin
@@ -219,16 +180,8 @@ module i2c_master_byte_ctrl (
           end
         end
         RD_F :begin 
-          /*if (ctrl_rd) begin
-            SR_shift<=1'b1;
-            ctrl_rd<=1'b0;
-          end 
-          else begin
-            SR_shift<=1'b0;
-          end*/
           if(Bit_ack) begin
             Bit_cmd<=`I2C_CMD_READ;
-            //ctrl_rd<=1'b1;
             SR_shift<=1'b1;              
           end
           else if(Write)begin
@@ -241,16 +194,8 @@ module i2c_master_byte_ctrl (
           end
         end
         RD_G :begin
-          /*if (ctrl_rd) begin
-            SR_shift<=1'b1;
-            ctrl_rd<=1'b0;
-          end 
-          else begin
-            SR_shift<=1'b0;
-          end*/
           if(Bit_ack) begin
             Bit_cmd<=`I2C_CMD_READ;
-            //ctrl_rd<=1'b1;
             SR_shift<=1'b1;              
           end
           else if(Write)begin
@@ -263,16 +208,8 @@ module i2c_master_byte_ctrl (
           end
         end
         RD_H :begin
-          /*if (ctrl_rd) begin
-            SR_shift<=1'b1;
-            ctrl_rd<=1'b0;
-          end 
-          else begin
-            SR_shift<=1'b0;
-          end*/
           if(Bit_ack) begin
             Bit_cmd<=`I2C_CMD_NOP;
-            //ctrl_rd<=1'b1;
             SR_shift<=1'b1;
           end
           else if(Write)begin
@@ -452,17 +389,6 @@ module i2c_master_byte_ctrl (
           end
         end
 
-        /*ACK :begin 
-            Rx_ack<=Bit_rxd;
-
-            if(Bit_cmd==`I2C_CMD_READ) begin 
-              Bit_cmd<=`I2C_CMD_WRITE;
-            end
-            else if(Bit_cmd==`I2C_CMD_WRITE) begin 
-              Bit_cmd<=`I2C_CMD_READ;
-            end
-        end
-        */
         ACK  : begin
         if (Stop) begin
           if (Read) begin
@@ -602,35 +528,7 @@ module i2c_master_byte_ctrl (
           next=STOP;
         end
       end
-      /*Wait_ack_nack: begin 
-        if(Bit_ack) begin
-            next=IDLE;
-          if (Write) begin
-            next=WR_A;
-          end
-          if (Read) begin
-            next=RD_A;
-          end
-          else begin
-            next=Wait_ack_nack;
-          end
-        end
-      end
-      WR_ack_nack: begin 
-        if(Tx_ack) begin
-            next=IDLE;
-          if (Write) begin
-            next=WR_A;
-          end
-          if (Read) begin
-            next=RD_A;
-          end
-          else begin
-            next=WR_ack_nack;
-          end
-        end
-      end
-      */
+      
       ACK: begin 
         if(Stop) begin
           next=STOP;
